@@ -4,10 +4,6 @@ html, body {
   padding: 0;
 }
 
-.clock {
-  height: 100%;
-}
-
 .clock h1 {
   margin: 0;
 }
