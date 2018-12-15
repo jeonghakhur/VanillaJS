@@ -5,6 +5,19 @@ html, body {
 }
 
 .clock h1 {
+  font-size: 3rem;
   margin: 0;
+}
+
+.greeting {
+  font-size: 3rem;
+}
+
+.user-name, .greeting {
+  display: none;
+}
+
+.show {
+  display: block;
 }
 /*# sourceMappingURL=index.css.map */
