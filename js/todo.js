@@ -17,7 +17,7 @@ function handleCickDelete(e) {
   const li = btn.parentElement;
   todoList.removeChild(li);
   cleanToDos = toDos.filter(function(toDo) {
-    console.log(toDo.id, parseInt(li.id))
+    // console.log(toDo.id, parseInt(li.id))
     // return toDo.id !== li.id;
     return toDo.id !== parseInt(li.id);
   });
@@ -59,7 +59,7 @@ function handleSubmit(e) {
 function loadTodos() {
   const loadedToDos = localStorage.getItem(TODOS);
   if (loadedToDos !== null) {
-    console.log(loadedToDos);
+    // console.log(loadedToDos);
     const parsedToDos = JSON.parse(loadedToDos);
     parsedToDos.forEach(function(toDo) {
       paintTodo(toDo.text);
