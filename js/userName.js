@@ -5,11 +5,15 @@ const greeting = document.querySelector('.greeting');
 
 const USER_LS = 'currentUser';
 
+function saveName(text) {
+  localStorage.setItem(USER_LS, text);
+}
+
 function handleSubmit(e) {
   e.preventDefault();
   const currentValue = input.value;
-  localStorage.setItem(USER_LS, currentValue);
-  input.value = '';
+  paintGreeting(currentValue);
+  saveName(currentValue);
 }
 
 function askForName() {
@@ -28,7 +32,7 @@ function loadName() {
   if (currentUser === null) {
     askForName();
   } else {
-    paintGreeting(currentUser)
+    paintGreeting(currentUser);
   }
 }
 
