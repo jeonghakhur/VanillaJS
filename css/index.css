@@ -6,10 +6,26 @@ html, body {
 
 body {
   background-color: #1abc9c;
+  color: #fff;
+}
+
+.ly-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  text-align: center;
+}
+
+.clock {
+  text-align: center;
 }
 
 .clock h1 {
-  font-size: 3rem;
+  font-size: 5rem;
   margin: 0;
 }
 
@@ -19,6 +35,37 @@ body {
 
 .user-name, .greeting {
   display: none;
+}
+
+.user-name {
+  margin: 1rem 0;
+}
+
+.user-name input {
+  height: 3rem;
+  width: 80%;
+  font-size: 2rem;
+}
+
+.todo-form input {
+  height: 3rem;
+  width: 80%;
+  font-size: 2rem;
+}
+
+.todo-list {
+  margin: 1.5rem 0;
+  padding: 0 50px;
+  text-align: left;
+}
+
+.todo-list li {
+  margin: 0.5rem 0;
+  list-style-type: none;
+}
+
+.todo-list button {
+  float: right;
 }
 
 .show {
@@ -46,5 +93,14 @@ body {
   to {
     opacity: 1;
   }
+}
+
+.clock {
+  color: #fff;
+}
+
+.weather {
+  color: #fff;
+  font-size: 2rem;
 }
 /*# sourceMappingURL=index.css.map */
