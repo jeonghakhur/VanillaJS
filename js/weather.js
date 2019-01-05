@@ -6,19 +6,23 @@ const API_KEY = 'eebedd7fbd8382cd1f41f22ae440820e'
 const COORDS = 'coords';
 
 // 6.1
-function getWeather(lat, log) {
+function getWeather(lat, lon) {
   // fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${log}&appid=${API_KEY}`);
-  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${log}&appid=${API_KEY}&units=metric`)
-  .then(function(response) {
-    // console.log(response.json());
-    return response.json();
-  })
-  .then(function(json) {
-    console.log(json);
-    const temperature = json.main.temp;
-    const place = json.name
-    weather.innerText = `${temperature} @ ${place}`;
-  })
+  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
+    .then(function(response) {
+      // console.log(response.json());
+      return response.json();
+    })
+    .then(function(json) {
+      console.log(json);
+      const temperature = json.main.temp;
+      const place = json.name;
+      const icon = json.weather[0].icon;
+      const img = document.createElement('img');
+      img.src = `//openweathermap.org/img/w/${icon}.png`;
+      weather.innerText = `${temperature} @ ${place}`;
+      weather.insertAdjacentElement('afterend', img);
+    })
 }
 
 // 5.1
@@ -28,19 +32,33 @@ function saveCoords(coordsObj) {
 
 // 3.
 function handleGeoSuccess(position) {
-  const latitude = position.coords.latitude;
-  const longitude = position.coords.longitude;
-  const coordsObj = {
-    latitude,
-    longitude
+  const lat = position.coords.latitude;
+  const lon = position.coords.longitude;
+
+  const loadedCoords = localStorage.getItem(COORDS);
+  console.log(loadedCoords);
+
+  if (loadedCoords) {
+    const parsedCoords = JSON.parse(loadedCoords);
+    const oldLat = parsedCoords.latitude;
+    const oldLon = parsedCoords.longitude;
+    if (lat !== oldLat && lon !== oldLon) {
+      saveCoords({
+        lat,
+        lon
+      });
+    }
+  } else {
+    saveCoords({
+      lat,
+      lon
+    });
   }
 
-  // 5.
-  saveCoords(coordsObj);
-  // 6
-  getWeather(latitude, longitude);
-}
+  getWeather(lat, lon);
 
+  // 
+}
 
 // 4.
 function handleGeoError() {
@@ -54,14 +72,7 @@ function askForCoords() {
 
 // 1.
 function loadCoords() {
-  const loadedCoords = localStorage.getItem(COORDS);
-  if (loadedCoords === null) {
-    askForCoords();
-  } else {
-    const parsedCoords = JSON.parse(loadedCoords);
-    // console.log(parsedCoords);
-    getWeather(parsedCoords.latitude, parsedCoords.longitude);
-  }
+  askForCoords();
 }
 
 function init() {
